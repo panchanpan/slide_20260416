@@ -306,6 +306,14 @@ body { font-family: var(--font-sans); }
   margin-block: auto;
 }
 
+/* 5カラムレイアウト */
+.cols-5 {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--sp-sm);
+  margin-block: auto;
+}
+
 /* 箇条書き（行頭にアクセント色のドット） */
 .list {
   display: flex;
