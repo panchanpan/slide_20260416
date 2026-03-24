@@ -1,0 +1,1869 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AIクリエイティブ強化研修 — 動画生成AI実践パート</title>
+  <link rel="stylesheet" href="engine/slide.css">
+  <link rel="stylesheet" href="theme/posts-style.css">
+</head>
+<body>
+
+<div class="deck">
+
+  <!-- ============================================================
+       セクション0: タイトル＋イントロ（Slides 1-8）
+       ============================================================ -->
+
+  <!-- Slide 1: タイトル -->
+  <section class="slide slide-title">
+
+    <p class="label mono">2026.04.16</p>
+    <h1>AIクリエイティブ強化研修 動画生成AI実践パート</h1>
+    <p class="sub">動画生成AIの主要機能・クオリティUPのコツ・プロンプトエンジニアリング・<br>編集自動化・実務注意点を100分で体系的に学ぶ</p>
+  </section>
+
+  <!-- Slide 2: アジェンダ -->
+  <section class="slide slide-content">
+
+    <div class="body">
+      <h2>アジェンダ</h2>
+      <ul class="list">
+        <li><span class="accent bold">Part 1</span> &nbsp;AI動画の主要機能を知る</li>
+        <li><span class="accent bold">Part 2</span> &nbsp;クオリティを上げるコツ：段階的生成アプローチ</li>
+        <li><span class="accent bold">Part 3</span> &nbsp;構成作成のためのプロンプトエンジニアリング</li>
+        <li><span class="accent bold">Part 4</span> &nbsp;編集自動化：Remotion</li>
+        <li><span class="accent bold">Part 5</span> &nbsp;実務活用時の注意点</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Slide 3: ゴール共有 -->
+  <section class="slide slide-content">
+    <div class="body">
+      <h2>本日のゴール</h2>
+      <p style="font-size: var(--text-2xl); font-weight: var(--weight-bold); color: var(--color-fg); line-height: 1.4;">動画生成AIで今できること<br>全体像を理解し、<br><span class="accent">明日から使える状態になる</span></p>
+    </div>
+  </section>
+
+  <!-- Slide 4: Part 1 セクション区切り -->
+  <section class="slide slide-section section-warm">
+    <h2>Part 1</h2>
+    <p>AI動画の主要機能を知る</p>
+  </section>
+
+  <!-- Slide 8: 7つの機能の全体像テーブル -->
+  <section class="slide slide-content">
+
+    <div class="body">
+      <h2>AI動画の7つの主要機能</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>機能</th>
+            <th>内容</th>
+            <th>主なツール</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Text-to-Video</td>
+            <td>プロンプトから動画を生成</td>
+            <td>Kling, Runway, Vidu, Sora, Veo等</td>
+          </tr>
+          <tr>
+            <td>Image-to-Video</td>
+            <td>静止画から動画を生成</td>
+            <td>Kling, Runway, Vidu, Sora, Veo等</td>
+          </tr>
+          <tr>
+            <td>フェイススワップ</td>
+            <td>顔の差し替え、属性変更</td>
+            <td>Akool, DomoAI等</td>
+          </tr>
+          <tr>
+            <td>リップシンク</td>
+            <td>音声に合わせて口元を動かす</td>
+            <td>DomoAI, HeyGen等</td>
+          </tr>
+          <tr>
+            <td>AIリレイアウト</td>
+            <td>アスペクト比変換・背景拡張</td>
+            <td>Runway, CapCut等</td>
+          </tr>
+          <tr>
+            <td>ワークフロー</td>
+            <td>ワークフローを組んで動画生成</td>
+            <td>Kling Labo, Runway Workflow等</td>
+          </tr>
+          <tr>
+            <td>動画作成エージェント</td>
+            <td>脚本〜生成まで一括自動化</td>
+            <td>Vidu, OiiOii等</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       セクション1: AI動画の主要機能（Slides 9-43）
+       ============================================================ -->
+
+  <!-- === 1-1. Text-to-Video（9-13） === -->
+
+  <!-- Slide 9: Text-to-Video 説明 -->
+  <section class="slide slide-content">
+
+    <div class="body">
+      <h2>1-1. Text-to-Video</h2>
+      <p>プロンプトから動画を生成する基本機能</p>
+      <div class="cols-2">
+        <div>
+          <ul class="list">
+            <li>テキスト（プロンプト）を入力するだけで動画が生成される</li>
+            <li>ほぼ全てのツールで利用可能</li>
+            <li>動画生成AIの最も基本的な機能</li>
+          </ul>
+        </div>
+        <div>
+          <div class="flow" style="flex-direction:column; align-items:center; gap:var(--sp-sm);">
+            <div class="flow-step" style="width:100%; text-align:center;">
+              <h3>テキスト入力</h3>
+              <p>「海辺を走る犬」等</p>
+            </div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-step" style="width:100%; text-align:center; border-color:var(--color-accent);">
+              <h3 class="accent">AI処理</h3>
+              <p>プロンプトを解析<br>→ 映像を生成</p>
+            </div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-step" style="width:100%; text-align:center;">
+              <h3>動画出力</h3>
+              <p>5〜60秒の動画</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 10: ツール紹介（6ツール＋費用） -->
+  <section class="slide slide-content">
+
+    <div class="body">
+      <h2>Text-to-Video — 主要ツール＆費用</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>ツール</th>
+            <th>特徴</th>
+            <th>10秒あたり費用</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="bold">Kling</span></td>
+            <td>V2.1 Master / 1080p</td>
+            <td>約 <span class="accent bold">¥420</span></td>
+          </tr>
+          <tr>
+            <td><span class="bold">Runway</span></td>
+            <td>Gen-4.5 / 720p〜1080p</td>
+            <td>約 <span class="accent bold">¥180</span></td>
+          </tr>
+          <tr>
+            <td><span class="bold">Luma</span></td>
+            <td>Ray 2 / 1080p</td>
+            <td>約 <span class="accent bold">¥260</span></td>
+          </tr>
+          <tr>
+            <td><span class="bold">Vidu</span></td>
+            <td>Q3-Pro / 1080p</td>
+            <td>約 <span class="accent bold">¥225</span></td>
+          </tr>
+          <tr>
+            <td><span class="bold">Sora</span></td>
+            <td>Sora 2 Pro / 1024p</td>
+            <td>約 <span class="accent bold">¥750</span></td>
+          </tr>
+          <tr>
+            <td><span class="bold">Veo</span></td>
+            <td>Veo 3.1 Standard / 1080p</td>
+            <td>約 <span class="accent bold">¥600</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="muted">※ 各ツール最上位モデルのAPI利用時（1ドル≒150円換算）。モデル・解像度により変動。最新情報は各公式サイトを確認</p>
+    </div>
+  </section>
+
+  <!-- Slide 12: Text-to-Video デモタイトル -->
+  <section class="slide slide-landing">
+    <h2><span class="accent">デモ動画</span><br>Text-to-Video（Runway）</h2>
+  </section>
+
+  <!-- Slide 12-2: Text-to-Video デモ動画 -->
+  <section class="slide slide-content" style="padding: 0;">
+    <div style="width:100%; height:100%; display:flex; align-items:center; justify-content:center;">
+      <video src="assets/1-1_text-to-video_demo.mp4" controls style="width:100%; height:100%; object-fit:contain;"></video>
+    </div>
+  </section>
+
+  <!-- === 1-2. Image-to-Video === -->
+
+  <!-- Image-to-Video 説明 -->
+  <section class="slide slide-content">
+
+    <div class="body">
+      <h2>1-2. Image-to-Video</h2>
+      <p>静止画から動画を生成（開始/終了フレーム指定）</p>
+      <div class="cols-2">
+        <div>
+          <ul class="list">
+            <li>既存の画像をベースに動画を生成</li>
+            <li>開始フレームまたは終了フレームを指定可能</li>
+            <li>ほぼ全てのツールで利用可能</li>
+          </ul>
+        </div>
+        <div>
+          <div class="flow" style="flex-direction:column; align-items:center; gap:var(--sp-sm);">
+            <div class="flow-step" style="width:100%; text-align:center;">
+              <h3>静止画（1枚）</h3>
+              <p>開始 or 終了フレーム</p>
+            </div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-step" style="width:100%; text-align:center; border-color:var(--color-accent);">
+              <h3 class="accent">AI処理</h3>
+              <p>画像を解析<br>→ 動きを生成</p>
+            </div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-step" style="width:100%; text-align:center;">
+              <h3>動画出力</h3>
+              <p>画像の世界観を<br>維持した動画</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Image-to-Video デモタイトル -->
+  <section class="slide slide-landing">
+    <h2><span class="accent">デモ動画</span><br>Image-to-Video（Kling）</h2>
+  </section>
+
+  <!-- Image-to-Video デモ動画 -->
+  <section class="slide slide-content" style="padding: 0;">
+    <div style="width:100%; height:100%; display:flex; align-items:center; justify-content:center;">
+      <video src="assets/1-2_image-to-video_demo.mp4" controls style="width:100%; height:100%; object-fit:contain;"></video>
+    </div>
+  </section>
+
+  <!-- Image-to-Video 開始/終了フレーム -->
+  <section class="slide slide-landing">
+    <h2>開始フレームと終了フレームを<br>選ぶことも可能</h2>
+  </section>
+
+  <!-- Image-to-Video 画面収録 -->
+  <section class="slide slide-content" style="padding: 0;">
+    <div style="width:100%; height:100%; display:flex; align-items:center; justify-content:center;">
+      <video src="../../../demo/captures/1-2_image-to-video/画面収録 2026-03-21 23.23.49.mp4" controls style="width:100%; height:100%; object-fit:contain;"></video>
+    </div>
+  </section>
+
+  <!-- Image-to-Video Kling生成結果 -->
+  <section class="slide slide-content" style="padding: 0;">
+    <div style="width:100%; height:100%; display:flex; align-items:center; justify-content:center;">
+      <video src="../../../demo/captures/1-2_image-to-video/kling_20260321_作品_____豆______5722_0.mp4" controls style="width:100%; height:100%; object-fit:contain;"></video>
+    </div>
+  </section>
+
+  <!-- === 1-3. フェイススワップ・別人化 === -->
+
+  <!-- Slide 18: フェイススワップ 説明 -->
+  <section class="slide slide-content">
+
+    <div class="body">
+      <h2>1-3. フェイススワップ・別人化</h2>
+      <p>顔の差し替え、属性変更</p>
+      <div class="cols-2">
+        <div>
+          <ul class="list">
+            <li>動画内の人物の顔を別の顔に差し替える</li>
+            <li>年齢・性別・属性の変更も可能</li>
+            <li>素材不足の解消に直結する機能</li>
+          </ul>
+        </div>
+        <div>
+          <div class="flow" style="flex-direction:column; align-items:center; gap:var(--sp-sm);">
+            <div class="flow-step" style="width:100%; text-align:center;">
+              <h3>元の動画 + 顔写真</h3>
+              <p>差し替えたい顔を指定</p>
+            </div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-step" style="width:100%; text-align:center; border-color:var(--color-accent);">
+              <h3 class="accent">AI処理</h3>
+              <p>顔を検出・差し替え<br>→ 自然に合成</p>
+            </div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-step" style="width:100%; text-align:center;">
+              <h3>別人化した動画</h3>
+              <p>1素材→複数パターン</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- フェイススワップ デモタイトル -->
+  <section class="slide slide-landing">
+    <h2><span class="accent">デモ動画</span><br>フェイススワップ①</h2>
+  </section>
+
+  <!-- フェイススワップ Before動画 + 差し替え顔写真 -->
+  <section class="slide slide-content" style="padding: 0;">
+    <div style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; gap: 3rem; padding: 2rem 3rem;">
+      <div style="flex:2; text-align:center;">
+        <p class="bold" style="margin-bottom:.5rem;">元動画</p>
+        <video src="../../../demo/captures/1-3_faceswap/example1/before.mp4" controls style="width:100%; border-radius: var(--radius);"></video>
+      </div>
+      <div style="flex:1; display:flex; flex-direction:column; align-items:center;">
+        <p class="bold" style="margin-bottom:.5rem;">変更したい顔写真</p>
+        <div style="width: 240px; height: 240px; border-radius: 50%; overflow: hidden; border: 3px solid var(--color-accent);">
+          <img src="../../../demo/captures/1-3_faceswap/example1/Firefly_Gemini Flash_部屋着を着ている40歳の日本人女性。背景は白。顔は少し荒れているが美しく、髪はウェーブで整っている 43693.png" alt="変更したい顔写真" style="width:100%; height:100%; object-fit:cover; object-position: center 20%;">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- フェイススワップ 例1 画面収録 -->
+  <section class="slide slide-content" style="padding: 0;">
+    <div style="width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; padding: 1.5rem 2rem;">
+      <p class="accent bold" style="margin-bottom:.5rem; font-size:20px;">フェイススワップデモ動画（AKOOL）</p>
+      <video src="../../../demo/captures/1-3_faceswap/example1/画面収録 2026-03-22 11.06.10.mp4" controls style="width:100%; flex:1; min-height:0; object-fit:contain; border-radius: var(--radius);"></video>
+    </div>
+  </section>
+
+  <!-- フェイススワップ Before/After 例1 動画 -->
+  <section class="slide slide-content" style="padding: 0;">
+    <div style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; gap: 2rem; padding: 1.5rem;">
+      <div style="flex:1; text-align:center; display:flex; flex-direction:column; align-items:center;">
+        <p class="bold" style="margin-bottom:.5rem;">Before</p>
+        <video src="assets/1-3_faceswap_ex1_before.mp4" controls style="width:100%; max-height:calc(100vh * 9/16 - 3rem); object-fit:contain; border-radius: var(--radius);"></video>
+      </div>
+      <div style="flex:1; text-align:center; display:flex; flex-direction:column; align-items:center;">
+        <p class="bold" style="margin-bottom:.5rem;">After</p>
+        <video src="assets/1-3_faceswap_ex1_after.mp4" controls style="width:100%; max-height:calc(100vh * 9/16 - 3rem); object-fit:contain; border-radius: var(--radius);"></video>
+      </div>
+    </div>
+  </section>
+
+  <!-- フェイススワップ Before/After 例2 タイトル -->
+  <section class="slide slide-landing">
+    <h2><span class="accent">デモ動画</span><br>フェイススワップ②</h2>
+  </section>
+
+  <!-- フェイススワップ 例2 画面収録 -->
+  <section class="slide slide-content" style="padding: 0;">
+    <div style="width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; padding: 1.5rem 2rem;">
+      <p class="accent bold" style="margin-bottom:.5rem; font-size:20px;">フェイススワップデモ動画（AKOOL）</p>
+      <video src="../../../demo/captures/1-3_faceswap/example2/画面収録 2026-03-22 11.02.57.mp4" controls style="width:100%; flex:1; min-height:0; object-fit:contain; border-radius: var(--radius);"></video>
+    </div>
+  </section>
+
+  <!-- フェイススワップ Before/After 例2 動画 -->
+  <section class="slide slide-content" style="padding: 0;">
+    <div style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; gap: 2rem; padding: 2rem;">
+      <div style="flex:1; text-align:center;">
+        <p class="bold" style="margin-bottom:.5rem;">Before</p>
+        <video src="assets/1-3_faceswap_ex2_before.mp4" controls style="width:100%; border-radius: var(--radius);"></video>
+      </div>
+      <div style="flex:1; text-align:center;">
+        <p class="bold" style="margin-bottom:.5rem;">After</p>
+        <video src="assets/1-3_faceswap_ex2_after.mp4" controls style="width:100%; border-radius: var(--radius);"></video>
+      </div>
+    </div>
+  </section>
+
+  <!-- === 1-4. リップシンク（22-25） === -->
+
+  <!-- Slide 22: リップシンク 説明 -->
+  <section class="slide slide-content">
+
+    <div class="body">
+      <h2>1-4. リップシンク</h2>
+      <p>音声に合わせて人物の口元を動かす</p>
+      <div class="cols-2">
+        <div>
+          <ul class="list">
+            <li>音声データを入力すると、人物の口元が音声に同期</li>
+            <li>多言語対応：日本語の音声でも自然な口の動き</li>
+            <li>既存の動画・画像に対して適用可能</li>
+          </ul>
+        </div>
+        <div>
+          <div class="flow" style="flex-direction:column; align-items:center; gap:var(--sp-sm);">
+            <div class="flow-step" style="width:100%; text-align:center;">
+              <h3>動画/画像 + 音声</h3>
+              <p>人物素材と音声データ</p>
+            </div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-step" style="width:100%; text-align:center; border-color:var(--color-accent);">
+              <h3 class="accent">AI処理</h3>
+              <p>顔検出→音声解析<br>→ 口元の動きを生成</p>
+            </div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-step" style="width:100%; text-align:center;">
+              <h3>喋る人物動画</h3>
+              <p>自然なリップシンク</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- リップシンク 仕組みフロー -->
+  <section class="slide slide-content">
+
+    <div class="body">
+      <h2>リップシンクの仕組み</h2>
+      <div class="flow" style="align-items:center;">
+        <div class="flow-step" style="display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:90px; padding:.75rem;">
+          <svg width="48" height="48" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1" style="margin-bottom:.5rem; opacity:.7; flex-shrink:0;">
+            <rect x="6" y="4" width="20" height="24" rx="2"/>
+            <line x1="12" y1="12" x2="12" y2="20"/>
+            <line x1="16" y1="9" x2="16" y2="23"/>
+            <line x1="20" y1="11" x2="20" y2="21"/>
+          </svg>
+          <h3>音声入力</h3>
+          <p>音声データを読み込む</p>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step" style="display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:90px; padding:.75rem;">
+          <svg width="48" height="48" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1" style="margin-bottom:.5rem; opacity:.7; flex-shrink:0;">
+            <circle cx="16" cy="13" r="8"/>
+            <circle cx="13" cy="11" r="1.5"/>
+            <circle cx="19" cy="11" r="1.5"/>
+            <path d="M12 15.5 Q16 19 20 15.5"/>
+            <rect x="10" y="23" width="12" height="5" rx="1" stroke-dasharray="2 2"/>
+          </svg>
+          <h3>顔検出</h3>
+          <p>動画内の顔を認識</p>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step" style="display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:90px; padding:.75rem;">
+          <svg width="48" height="48" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1" style="margin-bottom:.5rem; opacity:.7; flex-shrink:0;">
+            <circle cx="16" cy="16" r="10"/>
+            <ellipse cx="16" cy="20" rx="5" ry="3"/>
+            <path d="M11 20 Q16 26 21 20" stroke-dasharray="2 2"/>
+          </svg>
+          <h3>口元変形</h3>
+          <p>音声に合わせて<br>口の動きを生成</p>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step" style="display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:90px; padding:.75rem;">
+          <svg width="48" height="48" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1" style="margin-bottom:.5rem; opacity:.7; flex-shrink:0;">
+            <rect x="4" y="6" width="24" height="16" rx="2"/>
+            <polygon points="13,10 13,18 21,14"/>
+            <rect x="8" y="25" width="16" height="2" rx="1"/>
+          </svg>
+          <h3>合成出力</h3>
+          <p>自然な動画として<br>書き出し</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- リップシンク デモ Step1 タイトル -->
+  <section class="slide slide-landing">
+    <h2><span class="accent">デモ動画</span><br>リップシンク — Step 1 音声作成（ElevenLabs）</h2>
+  </section>
+
+  <!-- リップシンク デモ Step1 動画 -->
+  <section class="slide slide-content" style="padding: 0;">
+    <div style="width:100%; height:100%; display:flex; align-items:center; justify-content:center;">
+      <video src="assets/1-4_lipsync_step1_voice.mp4" controls style="width:100%; height:100%; object-fit:contain;"></video>
+    </div>
+  </section>
+
+  <!-- リップシンク デモ Step2 タイトル -->
+  <section class="slide slide-landing">
+    <h2><span class="accent">デモ動画</span><br>リップシンク — Step 2 リップシンク作成（DomoAI）</h2>
+  </section>
+
+  <!-- リップシンク デモ Step2 動画 -->
+  <section class="slide slide-content" style="padding: 0;">
+    <div style="width:100%; height:100%; display:flex; align-items:center; justify-content:center;">
+      <video src="assets/1-4_lipsync_step2_sync.mp4" controls style="width:100%; height:100%; object-fit:contain;"></video>
+    </div>
+  </section>
+
+  <!-- リップシンク DomoAI完成動画 -->
+  <section class="slide slide-content" style="padding: 0;">
+    <div style="width:100%; height:100%; display:flex; align-items:center; justify-content:center;">
+      <video src="assets/1-4_lipsync_step2_output.mp4" controls style="width:100%; height:100%; object-fit:contain;"></video>
+    </div>
+  </section>
+
+  <!-- リップシンク Klingバージョン タイトル -->
+  <section class="slide slide-landing">
+    <h2>同じ要領で<span class="accent">Kling</span>でも<br>作ってみたバージョン</h2>
+  </section>
+
+  <!-- AIリレイアウト After -->
+  <section class="slide slide-content" style="padding: 0;">
+    <div style="width:100%; height:100%; display:flex; align-items:center; justify-content:center;">
+      <video src="assets/1-4_lipsync_step3_output.mp4" controls style="width:100%; height:100%; object-fit:contain;"></video>
+    </div>
+  </section>
+
+  <!-- 1-5. AIリレイアウト 説明 -->
+  <section class="slide slide-content">
+
+    <div class="body">
+      <h2>1-5. AIリレイアウト</h2>
+      <p>アスペクト比変換・動画拡張・背景生成</p>
+      <div class="cols-2">
+        <div>
+          <ul class="list">
+            <li>動画のアスペクト比を自動変換（1080×1080 → 1080×1920 等）</li>
+            <li>構図を崩さずAIで背景を自然に拡張</li>
+            <li>1素材から複数サイズを効率的に展開</li>
+          </ul>
+        </div>
+        <div>
+          <div class="flow" style="flex-direction:column; align-items:center; gap:var(--sp-sm);">
+            <div class="flow-step" style="width:100%; text-align:center;">
+              <h3>元動画</h3>
+              <p>1080×1080（正方形）</p>
+            </div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-step" style="width:100%; text-align:center; border-color:var(--color-accent);">
+              <h3 class="accent">AI処理</h3>
+              <p>背景を自然に拡張<br>→ 構図を維持</p>
+            </div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-step" style="width:100%; text-align:center;">
+              <h3>リレイアウト動画</h3>
+              <p>1080×1920（縦長）</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AIリレイアウト Before -->
+  <section class="slide slide-content" style="padding: 0;">
+    <div style="width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; padding: 2rem;">
+      <p class="bold" style="margin-bottom:.5rem;">Before</p>
+      <video src="../../../demo/captures/1-3_faceswap/example1/before.mp4" controls style="max-width:100%; max-height:calc(100% - 3rem); object-fit:contain; border-radius: var(--radius);"></video>
+    </div>
+  </section>
+
+  <!-- AIリレイアウト After -->
+  <section class="slide slide-content" style="padding: 0;">
+    <div style="width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; padding: 2rem;">
+      <p class="bold" style="margin-bottom:.5rem;">After</p>
+      <video src="../../../demo/captures/1-5_relayout/output.mp4" controls style="max-width:100%; max-height:calc(100% - 3rem); object-fit:contain; border-radius: var(--radius);"></video>
+    </div>
+  </section>
+
+  <!-- AIリレイアウト デモ動画（CapCut） -->
+  <section class="slide slide-content" style="padding: 0;">
+    <div style="width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; padding: 1.5rem 2rem;">
+      <p class="accent bold" style="margin-bottom:.5rem; font-size:20px;">AIリレイアウトデモ動画（CapCut）</p>
+      <video src="../../../demo/captures/1-5_relayout/画面収録 2026-03-22 12.32.18.mp4" controls style="width:100%; flex:1; min-height:0; object-fit:contain; border-radius: var(--radius);"></video>
+    </div>
+  </section>
+
+  <!-- === 1-8. ワークフロー === -->
+
+  <!-- 1-8. ワークフロー 説明 -->
+  <section class="slide slide-content">
+
+    <div class="body">
+      <h2>1-8. ワークフロー</h2>
+      <p>ワークフローを組んで動画生成</p>
+      <div class="cols-2">
+        <div>
+          <ul class="list">
+            <li>複数の処理を組み合わせて自動実行</li>
+            <li>再現性のある動画制作パイプラインを構築</li>
+            <li>一度組めば、素材を差し替えるだけで量産可能</li>
+          </ul>
+        </div>
+        <div>
+          <div class="flow" style="flex-direction:column; align-items:center; gap:var(--sp-sm);">
+            <div class="flow-step" style="width:100%; text-align:center;">
+              <h3>入力素材</h3>
+              <p>画像・テキスト・音声</p>
+            </div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-step" style="width:100%; text-align:center; border-color:var(--color-accent);">
+              <h3 class="accent">ワークフロー実行</h3>
+              <p>複数の処理を<br>自動で連結</p>
+            </div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-step" style="width:100%; text-align:center;">
+              <h3>完成動画</h3>
+              <p>品質の安定した出力</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ワークフロー デモ動画（TapNow） -->
+  <section class="slide slide-content" style="padding: 0;">
+    <div style="width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; padding: 1.5rem 2rem;">
+      <p class="accent bold" style="margin-bottom:.5rem; font-size:var(--text-lg);">ワークフローデモ動画（TapNow）</p>
+      <video src="../../../demo/captures/1-8_workflow/画面収録 2026-03-22 13.27.11.mp4" controls style="width:100%; flex:1; min-height:0; object-fit:contain; border-radius: var(--radius);"></video>
+    </div>
+  </section>
+
+  <!-- === 1-9. 動画作成エージェント === -->
+
+  <!-- Slide 35: 動画作成エージェント 説明 -->
+  <section class="slide slide-content">
+
+    <div class="body">
+      <h2>1-9. 動画作成エージェント</h2>
+      <p>脚本〜キャラクターデザイン〜生成まで、エージェントで作成する機能</p>
+      <ul class="list">
+        <li>テキスト指示だけで動画制作の全工程を自動化</li>
+        <li>脚本作成からキャラクターデザイン、動画生成まで一括</li>
+        <li>AIが「ディレクター」として全体を統括</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 動画作成エージェント デモ動画（OiiOii） -->
+  <section class="slide slide-content" style="padding: 0;">
+    <div style="width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; padding: 1.5rem 2rem;">
+      <p class="accent bold" style="margin-bottom:.5rem; font-size:var(--text-lg);">エージェントデモ動画（OiiOii）</p>
+      <video src="../../../demo/captures/1-9_agent/画面収録 2026-03-22 13.20.06.mp4" controls style="width:100%; flex:1; min-height:0; object-fit:contain; border-radius: var(--radius);"></video>
+    </div>
+  </section>
+
+  <!-- === セクション1まとめ === -->
+
+  <!-- 7機能まとめ -->
+  <section class="slide slide-content">
+
+    <div class="body">
+      <h2>Part 1 まとめ — AI動画の7つの主要機能</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>機能</th>
+            <th>内容</th>
+            <th>主なツール</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Text-to-Video</td>
+            <td>プロンプトから動画を生成</td>
+            <td>Kling, Runway, Vidu, Sora, Veo等</td>
+          </tr>
+          <tr>
+            <td>Image-to-Video</td>
+            <td>静止画から動画を生成</td>
+            <td>Kling, Runway, Vidu, Sora, Veo等</td>
+          </tr>
+          <tr>
+            <td>フェイススワップ</td>
+            <td>顔の差し替え、属性変更</td>
+            <td>Akool, DomoAI等</td>
+          </tr>
+          <tr>
+            <td>リップシンク</td>
+            <td>音声に合わせて口元を動かす</td>
+            <td>DomoAI, HeyGen等</td>
+          </tr>
+          <tr>
+            <td>AIリレイアウト</td>
+            <td>アスペクト比変換・背景拡張</td>
+            <td>Runway, CapCut等</td>
+          </tr>
+          <tr>
+            <td>ワークフロー</td>
+            <td>ワークフローを組んで動画生成</td>
+            <td>Kling Labo, Runway Workflow等</td>
+          </tr>
+          <tr>
+            <td>動画作成エージェント</td>
+            <td>脚本〜生成まで一括自動化</td>
+            <td>Vidu, OiiOii等</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ツール選定のアドバイス -->
+  <section class="slide slide-content">
+    <div class="body" style="display:flex; flex-direction:column; justify-content:center;">
+      <p class="muted" style="font-size:var(--text-sm); margin-bottom:.5rem;">One Point Advice</p>
+      <h2>ツール選定のコツ</h2>
+      <p style="font-size:var(--text-xl); line-height:1.8; margin-top:var(--sp-md);"><span class="accent bold">クオリティ重視</span>なら<span class="bold">Kling</span>か<span class="bold">Vidu</span>。<br>その他は使いたい用途によって変わるので、<br><span class="accent bold">AIに聞きながらツール選定をする</span>のがおすすめです。</p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       セクション2: クオリティを上げるコツ（Slides 44-55）
+       ============================================================ -->
+
+  <!-- Slide 44: Part 2 セクション区切り -->
+  <section class="slide slide-section section-warm">
+    <h2>Part 2</h2>
+    <p>プロンプトのコツ、<br>段階的生成アプローチ</p>
+  </section>
+
+  <!-- プロンプトの基本構成 -->
+  <section class="slide slide-content">
+    <div class="body">
+      <h2>動画プロンプトの基本構成</h2>
+      <p>動画生成のプロンプトは、以下の<span class="accent bold">5つの要素</span>を入れることを意識すると精度が上がります</p>
+      <table style="margin-top:var(--sp-md);">
+        <thead>
+          <tr>
+            <th>要素</th>
+            <th>問い</th>
+            <th>例</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="bold">被写体</td>
+            <td>誰が・何が</td>
+            <td>白いワンピースを着た20代の女性</td>
+          </tr>
+          <tr>
+            <td class="bold">アクション</td>
+            <td>どう動くか</td>
+            <td>カメラに向かって微笑みながら髪をかきあげる</td>
+          </tr>
+          <tr>
+            <td class="bold">シーン・背景</td>
+            <td>どこで</td>
+            <td>朝日が差し込むカフェのテラス席</td>
+          </tr>
+          <tr>
+            <td class="bold">スタイル</td>
+            <td>どんな雰囲気で</td>
+            <td>ナチュラルで柔らかいトーン、フィルム調</td>
+          </tr>
+          <tr>
+            <td class="bold">カメラワーク</td>
+            <td>どう撮るか</td>
+            <td>ゆっくりズームイン、浅い被写界深度</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- プロンプト Before→After -->
+  <section class="slide slide-content">
+    <div class="body">
+      <h2>Before → After：具体性で変わる</h2>
+      <div style="display:flex; flex-direction:column; gap:var(--sp-lg); margin-top:var(--sp-md);">
+        <div class="cols-2" style="align-items:stretch;">
+          <div class="card" style="background:rgba(200,50,50,0.06); display:flex; flex-direction:column; justify-content:center; min-height:6rem;">
+            <p class="muted bold" style="margin-bottom:.25rem;">Before ✕</p>
+            <p style="font-size:var(--text-lg);">女性がカフェにいる</p>
+          </div>
+          <div class="card" style="background:rgba(50,150,100,0.06); display:flex; flex-direction:column; justify-content:center; min-height:6rem;">
+            <p class="accent bold" style="margin-bottom:.25rem;">After ○</p>
+            <p style="font-size:var(--text-lg);">白いワンピースの女性が、朝日の差し込むカフェのテラスで、コーヒーカップを両手で包みながら微笑む。フィルム調、ゆっくりズームイン</p>
+          </div>
+        </div>
+        <div class="cols-2" style="align-items:stretch;">
+          <div class="card" style="background:rgba(200,50,50,0.06); display:flex; flex-direction:column; justify-content:center; min-height:6rem;">
+            <p class="muted bold" style="margin-bottom:.25rem;">Before ✕</p>
+            <p style="font-size:var(--text-lg);">商品を紹介する動画</p>
+          </div>
+          <div class="card" style="background:rgba(50,150,100,0.06); display:flex; flex-direction:column; justify-content:center; min-height:6rem;">
+            <p class="accent bold" style="margin-bottom:.25rem;">After ○</p>
+            <p style="font-size:var(--text-lg);">大理石のテーブルに置かれた化粧品ボトルに、窓からの自然光がゆっくり差し込む。クローズアップ、シネマティック、スローモーション</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- プロンプトの3つのコツ -->
+  <section class="slide slide-content">
+    <div class="body">
+      <h2>プロンプト精度を上げる3つのコツ</h2>
+      <div class="cols-3" style="margin-top:var(--sp-md); align-items:stretch;">
+        <div class="card" style="display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:200px; text-align:center;">
+          <p class="accent bold" style="font-size:var(--text-2xl); margin-bottom:.5rem;">01</p>
+          <h3>抽象動詞→具体動詞</h3>
+          <p style="margin-top:.5rem;">具体的な動作を指定する<br><span class="muted">例:「歩く」→「忍び足で進む」</span></p>
+        </div>
+        <div class="card" style="display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:200px; text-align:center;">
+          <p class="accent bold" style="font-size:var(--text-2xl); margin-bottom:.5rem;">02</p>
+          <h3>映像の専門用語を使う</h3>
+          <p style="margin-top:.5rem;">映画用語でAIの表現力が変わる<br><span class="muted">例: カメラワーク、被写界深度</span></p>
+        </div>
+        <div class="card" style="display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:200px; text-align:center;">
+          <p class="accent bold" style="font-size:var(--text-2xl); margin-bottom:.5rem;">03</p>
+          <h3>感情→行動＋質感に変換</h3>
+          <p style="margin-top:.5rem;">感情を視覚的な表現に置き換える<br><span class="muted">例:「嬉しい」→「小さく跳ねる」</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 一発生成の課題 -->
+  <section class="slide slide-content">
+    <div class="body">
+      <h2>一発で動画を生成すると…</h2>
+      <ul class="list">
+        <li>思った通りの動画にならない</li>
+        <li>人物がAIっぽい<span class="accent bold">ツルンとした質感</span>になってしまう</li>
+        <li><span class="accent bold">ガチャ要素</span>が強くなり、クレジットを無駄に消費してしまう</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 段階的生成の核心 -->
+  <section class="slide slide-landing">
+    <h2 style="font-size:var(--text-2xl);">これを解消するために、<br>工程を分けて<span class="accent">段階的に生成</span>する方が<br>クオリティが上がり、<br>出力コントロールもしやすい</h2>
+  </section>
+
+  <!-- Slide 46: 2-1. 画像生成→動画生成 -->
+  <section class="slide slide-content">
+
+    <div class="body">
+      <h2>2-1. 画像生成→動画生成</h2>
+      <p>画像生成AIで1枚作り、Image to Videoで動かす</p>
+      <ul class="list" style="margin-bottom:var(--sp-lg);">
+        <li>まず画像生成AIで狙い通りの1枚を作成</li>
+        <li>その画像をImage-to-Videoの入力にして動画化</li>
+      </ul>
+      <div class="flow" style="align-items:stretch;">
+        <div class="flow-step" style="display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:160px; padding:1rem;">
+          <svg width="48" height="48" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1" style="margin-bottom:.5rem; opacity:.7;">
+            <rect x="3" y="5" width="26" height="22" rx="2"/>
+            <circle cx="10" cy="12" r="2.5"/>
+            <polyline points="3,23 11,16 17,20 22,15 29,20"/>
+          </svg>
+          <h3>画像生成AI</h3>
+          <p>狙い通りの<br>1枚を作成</p>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step" style="display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:160px; padding:1rem;">
+          <svg width="48" height="48" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1" style="margin-bottom:.5rem; opacity:.7;">
+            <rect x="4" y="4" width="24" height="18" rx="2"/>
+            <polygon points="13,9 13,17 21,13"/>
+            <rect x="4" y="24" width="24" height="2" rx="1"/>
+            <rect x="4" y="27" width="16" height="1" rx=".5" opacity=".4"/>
+          </svg>
+          <h3>Image-to-Video</h3>
+          <p>画像をベースに<br>動画を生成</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 48: 画像→動画 デモ -->
+  <section class="slide slide-content" style="padding: 0;">
+    <div style="width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; padding: 1.5rem 2rem;">
+      <p class="accent bold" style="margin-bottom:.5rem; font-size:20px;">デモ: 画像生成→動画生成</p>
+      <video src="../../../demo/captures/1-2_image-to-video/画面収録 2026-03-21 23.10.29.mp4" controls style="width:100%; flex:1; min-height:0; object-fit:contain; border-radius: var(--radius);"></video>
+    </div>
+  </section>
+
+  <!-- Slide 49: ビフォーアフター生成 3ステップ -->
+  <section class="slide slide-content">
+
+    <div class="body">
+      <h2>Before / After 画像作成＆動画生成プロセス</h2>
+      <div class="cols-3" style="margin-top:var(--sp-md); align-items:stretch;">
+        <div style="display:flex; flex-direction:column; align-items:center; text-align:center;">
+          <div style="flex:1; display:flex; align-items:center; justify-content:center; margin-bottom:.75rem;">
+            <img src="../../../demo/captures/2-1_step-generation/スクリーンショット 2026-03-24 13.07.51.png" alt="STEP1" style="max-width:100%; max-height:180px; object-fit:contain; border-radius:var(--radius);">
+          </div>
+          <h3 class="accent">STEP 1: 画像作成</h3>
+          <p style="font-size:var(--text-sm);">画像生成AIで『ビフォー』と<br>『アフター』の初期状態を作成</p>
+        </div>
+        <div style="display:flex; flex-direction:column; align-items:center; text-align:center;">
+          <div style="flex:1; display:flex; align-items:center; justify-content:center; margin-bottom:.75rem;">
+            <img src="../../../demo/captures/2-1_step-generation/スクリーンショット 2026-03-24 13.08.07.png" alt="STEP2" style="max-width:100%; max-height:180px; object-fit:contain; border-radius:var(--radius);">
+          </div>
+          <h3 class="accent">STEP 2: 動画生成</h3>
+          <p style="font-size:var(--text-sm);">作成した画像を元に、Image-to-Video<br>AIでそれぞれ独立した動画を生成</p>
+        </div>
+        <div style="display:flex; flex-direction:column; align-items:center; text-align:center;">
+          <div style="flex:1; display:flex; align-items:center; justify-content:center; margin-bottom:.75rem;">
+            <img src="../../../demo/captures/2-1_step-generation/スクリーンショット 2026-03-24 13.08.15.png" alt="STEP3" style="max-width:100%; max-height:180px; object-fit:contain; border-radius:var(--radius);">
+          </div>
+          <h3 class="accent">STEP 3: 動画結合・編集</h3>
+          <p style="font-size:var(--text-sm);">生成した動画を編集ツール<br>（例: CapCut、Premiere）でつなぎ合わせて<br>一本のビフォーアフター動画にする</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 50: ビフォーアフター デモ -->
+  <section class="slide slide-content">
+
+    <div class="body">
+      <h2>デモ: ビフォーアフター動画</h2>
+      <div class="img-box" style="background: var(--color-border); display:flex; align-items:center; justify-content:center; min-height: 320px; border-radius: var(--radius);">
+        <p style="color: var(--color-muted); font-size: var(--text-xl);">🎬 デモ映像をここに配置</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 51: 2-2. 音声→画像→リップシンク -->
+  <section class="slide slide-content">
+
+    <div class="body">
+      <h2>2-2. 音声生成→画像生成→リップシンク動画</h2>
+      <p>3ステップで喋る人物動画を作る</p>
+      <ul class="list" style="margin-bottom:var(--sp-lg);">
+        <li>まず音声生成AIでナレーション音声を作成</li>
+        <li>次に画像生成AIで話者の画像を作成</li>
+        <li>最後にリップシンクで画像＋音声を合成→喋る人物動画に</li>
+      </ul>
+      <div class="flow" style="align-items:center;">
+        <div class="flow-step" style="display:flex; flex-direction:column; align-items:center; justify-content:center; padding:.75rem;">
+          <svg width="48" height="48" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1" style="margin-bottom:.5rem; opacity:.7;">
+            <rect x="6" y="4" width="20" height="24" rx="2"/>
+            <line x1="12" y1="12" x2="12" y2="20"/>
+            <line x1="16" y1="9" x2="16" y2="23"/>
+            <line x1="20" y1="11" x2="20" y2="21"/>
+          </svg>
+          <h3>音声生成</h3>
+          <p>ナレーション<br>音声を作成</p>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step" style="display:flex; flex-direction:column; align-items:center; justify-content:center; padding:.75rem;">
+          <svg width="48" height="48" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1" style="margin-bottom:.5rem; opacity:.7;">
+            <rect x="3" y="5" width="26" height="22" rx="2"/>
+            <circle cx="10" cy="12" r="2.5"/>
+            <polyline points="3,23 11,16 17,20 22,15 29,20"/>
+          </svg>
+          <h3>画像生成</h3>
+          <p>話者の<br>画像を作成</p>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step" style="display:flex; flex-direction:column; align-items:center; justify-content:center; padding:.75rem;">
+          <svg width="48" height="48" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1" style="margin-bottom:.5rem; opacity:.7;">
+            <rect x="4" y="4" width="24" height="18" rx="2"/>
+            <polygon points="13,9 13,17 21,13"/>
+            <rect x="4" y="24" width="24" height="2" rx="1"/>
+          </svg>
+          <h3>リップシンク</h3>
+          <p>画像＋音声を合成<br>→喋る人物動画</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 53: 音声→リップシンク デモ -->
+  <section class="slide slide-content" style="padding: 0;">
+    <div style="width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; padding: 1.5rem 2rem;">
+      <p class="accent bold" style="margin-bottom:.5rem; font-size:20px;">デモ: 音声→画像→リップシンク</p>
+      <video src="../../../demo/captures/1-4_lipsync/2リップシンク作成.mp4" controls style="width:100%; flex:1; min-height:0; object-fit:contain; border-radius: var(--radius);"></video>
+    </div>
+  </section>
+
+  <!-- Slide 54: 段階的生成 vs 直接生成 -->
+  <section class="slide slide-content">
+
+    <div class="body">
+      <h2>段階的生成 vs 直接生成</h2>
+      <div class="cols-2">
+        <div>
+          <h3 class="accent" style="margin-bottom:.75rem;">段階的生成</h3>
+          <ul class="list">
+            <li>各工程で品質チェック可能</li>
+            <li>途中で方向修正しやすい</li>
+            <li>出力コントロールが高い</li>
+            <li>最終品質が安定</li>
+          </ul>
+        </div>
+        <div style="border-left: var(--border); padding-left: var(--sp-lg);">
+          <h3 class="muted" style="margin-bottom:.75rem;">直接生成</h3>
+          <ul class="list">
+            <li>手順が少なく手軽</li>
+            <li>速度は速い</li>
+            <li>出力の制御が難しい</li>
+            <li>品質のばらつきが大きい</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 55: セクション2の締め -->
+  <section class="slide slide-landing">
+    <h2>段階的に生成することで、<br><span class="accent">クオリティとコントロール</span>の<br>両方を手に入れる</h2>
+  </section>
+
+  <!-- ============================================================
+       セクション3: プロンプトエンジニアリング（Slides 56-68）
+       ============================================================ -->
+
+  <!-- Slide 56: Part 3 セクション区切り -->
+  <section class="slide slide-section section-warm">
+    <h2>Part 3</h2>
+    <p>構成作成のための<br>プロンプトエンジニアリング</p>
+  </section>
+
+  <!-- Slide 57: セクション概要 -->
+  <section class="slide slide-content">
+
+    <div class="body">
+      <h2>このパートで学ぶこと</h2>
+      <p>LLMを使用した、ショート動画向けの構成・トークスクリプト作成のコツ</p>
+      <ul class="list">
+        <li><span class="bold">ナレーションプロンプト</span> — ショート動画に適した自然なナレーションを作る</li>
+        <li><span class="bold">構成案プロンプト</span> — 魅力的な構成案を作成する</li>
+        <li><span class="bold">トンマナ調整</span> — 硬いAI文章をショート動画向けに自然な表現へ変換する</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Slide 58: ナレーションプロンプト 説明 -->
+  <section class="slide slide-content">
+
+    <div class="body">
+      <h2>ナレーションプロンプト</h2>
+      <p>ショート動画に適した自然なナレーションを作るためのプロンプト</p>
+      <ul class="list">
+        <li>「読み上げ」ではなく「語りかけ」になるナレーション</li>
+        <li>視聴者の離脱を防ぐフック構造</li>
+        <li>秒数指定で尺に合わせた原稿作成</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Slide 59: ナレーション用テンプレート -->
+  <section class="slide slide-content">
+
+    <div class="body">
+      <h2>ナレーション用プロンプトテンプレート</h2>
+      <div class="card" style="flex:1;">
+        <p style="font-family: var(--font-mono); font-size: var(--text-base); line-height:1.8; color: var(--color-fg);">
+          以下のテーマで、{秒数}秒のショート動画用<br>
+          ナレーション原稿を作成してください。<br><br>
+          【テーマ】{テーマ}<br>
+          【ターゲット】{ターゲット層}<br>
+          【トーン】自然な語り口調、話しかけるように<br>
+          【構成】冒頭フック→本題→CTA<br>
+          【注意】「読み上げ原稿」ではなく<br>
+          「話している人の言葉」として自然に
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 60: ナレーション デモ -->
+  <section class="slide slide-content">
+
+    <div class="body">
+      <h2>デモ: ナレーションプロンプト</h2>
+      <div class="img-box" style="background: var(--color-border); display:flex; align-items:center; justify-content:center; min-height: 320px; border-radius: var(--radius);">
+        <p style="color: var(--color-muted); font-size: var(--text-xl);">🎬 デモをここに配置</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 61: 構成案プロンプト 説明 -->
+  <section class="slide slide-content">
+
+    <div class="body">
+      <h2>構成案プロンプト</h2>
+      <p>魅力的な構成案を作成するためのプロンプト</p>
+      <ul class="list">
+        <li>シーンごとの映像イメージ＋テキスト＋音声を一括設計</li>
+        <li>秒数配分まで含めた具体的な構成表</li>
+        <li>動画生成AIへの入力として直接使える形式</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Slide 62: 構成案用テンプレート -->
+  <section class="slide slide-content">
+
+    <div class="body">
+      <h2>構成案用プロンプトテンプレート</h2>
+      <div class="card" style="flex:1;">
+        <p style="font-family: var(--font-mono); font-size: var(--text-base); line-height:1.8; color: var(--color-fg);">
+          以下の条件で、ショート動画の構成案を<br>
+          作成してください。<br><br>
+          【テーマ】{テーマ}<br>
+          【尺】{秒数}秒<br>
+          【形式】シーンごとに以下を記載：<br>
+          &nbsp;&nbsp;- シーン番号、秒数<br>
+          &nbsp;&nbsp;- 映像イメージ（動画生成AIプロンプト用）<br>
+          &nbsp;&nbsp;- テロップテキスト<br>
+          &nbsp;&nbsp;- ナレーション（ある場合）
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 63: 構成案 デモ -->
+  <section class="slide slide-content">
+
+    <div class="body">
+      <h2>デモ: 構成案プロンプト</h2>
+      <div class="img-box" style="background: var(--color-border); display:flex; align-items:center; justify-content:center; min-height: 320px; border-radius: var(--radius);">
+        <p style="color: var(--color-muted); font-size: var(--text-xl);">🎬 デモをここに配置</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 64: トンマナ調整 説明 -->
+  <section class="slide slide-content">
+
+    <div class="body">
+      <h2>トンマナ調整</h2>
+      <p>スクリプトのトンマナ調整 — 硬いAI文章をショート動画向けに自然な表現へ変換するコツ</p>
+      <ul class="list">
+        <li>AIが生成した文章はそのままだと「硬い」「不自然」になりがち</li>
+        <li>ショート動画では「話し言葉」「親しみやすさ」が重要</li>
+        <li>プロンプトでトンマナを指定し、自然な表現に変換</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Slide 65: Before-After比較 -->
+  <section class="slide slide-content">
+
+    <div class="body">
+      <h2>トンマナ調整 — Before / After</h2>
+      <div class="cols-2">
+        <div>
+          <h3 class="muted" style="margin-bottom:.75rem;">Before（硬いAI文章）</h3>
+          <p>「本製品の使用により、<br>肌のハリ感が向上し、<br>シワの改善効果が<br>期待できます」</p>
+        </div>
+        <div style="border-left: var(--border); padding-left: var(--sp-lg);">
+          <h3 class="accent" style="margin-bottom:.75rem;">After（自然な表現）</h3>
+          <p>「使い始めて3日で、<br>あれ？肌の感じ変わった？って。<br>鏡見るのが楽しくなる<br>って、こういうことか」</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 66: トンマナ調整テンプレート -->
+  <section class="slide slide-content">
+
+    <div class="body">
+      <h2>トンマナ調整プロンプトテンプレート</h2>
+      <div class="card" style="flex:1;">
+        <p style="font-family: var(--font-mono); font-size: var(--text-base); line-height:1.8; color: var(--color-fg);">
+          以下の文章を、ショート動画のナレーションに<br>
+          適したトーンに書き換えてください。<br><br>
+          【元の文章】{文章}<br>
+          【トーン】友達に話すような自然な口調<br>
+          【注意点】<br>
+          &nbsp;&nbsp;- 書き言葉→話し言葉に<br>
+          &nbsp;&nbsp;- 「〜です」「〜ます」→くだけた表現に<br>
+          &nbsp;&nbsp;- 体験談風のリアルな表現を入れる
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 67: まとめ: 3つのコツ -->
+  <section class="slide slide-content">
+
+    <div class="body">
+      <h2>プロンプトエンジニアリング 3つのコツ</h2>
+      <div class="cols-3">
+        <div class="card">
+          <span class="tag">01</span>
+          <h3>ナレーション</h3>
+          <p>「語りかけ」になる<br>自然な原稿を<br>プロンプトで作成。</p>
+        </div>
+        <div class="card">
+          <span class="tag">02</span>
+          <h3>構成案</h3>
+          <p>シーンごとの映像・<br>テキスト・音声を<br>一括設計。</p>
+        </div>
+        <div class="card">
+          <span class="tag">03</span>
+          <h3>トンマナ</h3>
+          <p>硬いAI文章を<br>ショート動画向けの<br>自然な表現に変換。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 68: セクション3の締め -->
+  <section class="slide slide-landing">
+    <h2>LLMを使えば、<br>構成・ナレーション・トンマナまで<br><span class="accent">一気通貫で作れる</span></h2>
+  </section>
+
+  <!-- ============================================================
+       セクション4: Remotion（Slides 69-78）
+       ============================================================ -->
+
+  <!-- Slide 69: Part 4 セクション区切り -->
+  <section class="slide slide-section section-warm">
+    <h2>Part 4</h2>
+    <p>編集自動化：Remotion</p>
+  </section>
+
+  <!-- Slide 70: Remotion概要 -->
+  <section class="slide slide-content">
+
+    <div class="body">
+      <h2>Remotionとは</h2>
+      <p>コードベースで動画編集の自動化が可能</p>
+      <ul class="list">
+        <li>React + TypeScript で動画をプログラム的に生成</li>
+        <li>テンプレートを作れば、データを差し替えるだけで量産</li>
+        <li>手作業の編集ソフト操作が不要に</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Slide 71: 従来 vs Remotion -->
+  <section class="slide slide-content">
+
+    <div class="body">
+      <h2>従来の動画編集 vs Remotion</h2>
+      <div class="flow">
+        <div class="flow-step">
+          <h3>従来</h3>
+          <p>編集ソフトで<br>手作業</p>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <h3>テンプレ化</h3>
+          <p>動画をコードで<br>テンプレート化</p>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <h3>自動化</h3>
+          <p>データ入力で<br>動画を自動生成</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 72: Remotionの仕組み -->
+  <section class="slide slide-content">
+
+    <div class="body">
+      <h2>Remotionの仕組み</h2>
+      <ul class="list">
+        <li><span class="bold">React コンポーネント</span>: 動画の各シーンをコンポーネントとして定義</li>
+        <li><span class="bold">フレーム単位の制御</span>: アニメーション・トランジションをフレーム単位で指定</li>
+        <li><span class="bold">プログラマブル</span>: 変数・条件分岐・ループで動的にコンテンツ生成</li>
+        <li><span class="bold">レンダリング</span>: ブラウザで確認 → MP4/WebM に書き出し</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Slide 73: 期待値調整 -->
+  <section class="slide slide-landing">
+    <h2>難易度が高い —<br><span class="accent">最新トレンドの紹介</span>として</h2>
+  </section>
+
+  <!-- Slide 74: Claude Code × Remotion -->
+  <section class="slide slide-content">
+
+    <div class="body">
+      <h2>Claude Code × Remotion</h2>
+      <p>Claude Code × Remotion で自動化のワークフローを組むデモ</p>
+      <ul class="list">
+        <li>Claude Code（AIコーディングエージェント）に指示を出す</li>
+        <li>AIが構成設計→コード生成→動画レンダリングまでを自動実行</li>
+        <li>人間はテーマと指示を出すだけ</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Slide 75: デモフロー -->
+  <section class="slide slide-content">
+
+    <div class="body">
+      <h2>Claude Code × Remotion デモフロー</h2>
+      <div class="flow">
+        <div class="flow-step">
+          <h3>構成設計</h3>
+          <p>AIが脚本・<br>構成を作成</p>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <h3>コード生成</h3>
+          <p>Remotionの<br>コードを自動生成</p>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <h3>レンダリング</h3>
+          <p>動画ファイルを<br>自動書き出し</p>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <h3>完成動画</h3>
+          <p>MP4として<br>出力完了</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 76: デモ画面1 -->
+  <section class="slide slide-content">
+
+    <div class="body">
+      <h2>デモ: Claude Code × Remotion ①</h2>
+      <div class="img-box" style="background: var(--color-border); display:flex; align-items:center; justify-content:center; min-height: 320px; border-radius: var(--radius);">
+        <p style="color: var(--color-muted); font-size: var(--text-xl);">🎬 デモ画面をここに配置</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 77: デモ画面2 -->
+  <section class="slide slide-content">
+
+    <div class="body">
+      <h2>デモ: Claude Code × Remotion ②</h2>
+      <div class="img-box" style="background: var(--color-border); display:flex; align-items:center; justify-content:center; min-height: 320px; border-radius: var(--radius);">
+        <p style="color: var(--color-muted); font-size: var(--text-xl);">🎬 デモ画面をここに配置</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 78: Remotion 結論 -->
+  <section class="slide slide-landing">
+    <h2><span class="accent">構成設計から動画化まで</span>を<br>自動化</h2>
+  </section>
+
+  <!-- ============================================================
+       セクション5: 実務注意点（Slides 79-91）
+       ============================================================ -->
+
+  <!-- Slide 79: Part 5 セクション区切り -->
+  <section class="slide slide-section section-warm">
+    <h2>Part 5</h2>
+    <p>実務活用時の注意点</p>
+  </section>
+
+  <!-- Slide 80: セクション概要 -->
+  <section class="slide slide-content">
+
+    <div class="body">
+      <h2>実務で使う上での観点</h2>
+      <p>実務で使う上での観点やチェックポイントを説明します</p>
+      <ul class="list">
+        <li><span class="bold">法務・倫理の留意点</span> — 著作権・肖像権・利用規約</li>
+        <li><span class="bold">広告審査における注意点</span> — 各媒体のAI開示ルール・品質管理チェック</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Slide 81: 著作権（日本の法的見解） -->
+  <section class="slide slide-content">
+
+    <div class="body">
+      <h2>著作権 — 日本のルール</h2>
+      <p>文化庁「AIと著作権に関する考え方について」（2024年策定、2025年更新）</p>
+      <div class="cols-2">
+        <div>
+          <h3 style="margin-bottom:.5rem;">学習段階</h3>
+          <ul class="list">
+            <li>著作権法第30条の4に基づき、<span class="bold">原則として利用可能</span></li>
+            <li>ただし「特定の作家の画風をコピーする目的」での学習は<span class="bold">NG</span>（2025年文化庁見解で明確化）</li>
+          </ul>
+        </div>
+        <div style="border-left: var(--border); padding-left: var(--sp-lg);">
+          <h3 style="margin-bottom:.5rem;">生成・利用段階</h3>
+          <ul class="list">
+            <li>AIが自律的に生成した成果物には<span class="bold">原則として著作権は発生しない</span></li>
+            <li>人間がAIを「道具」として利用し、<span class="accent bold">創作的寄与</span>がある場合は著作権が発生しうる</li>
+          </ul>
+        </div>
+      </div>
+      <p class="muted">※ 既存の著作物に類似した出力には侵害リスクあり。商用利用時は各ツールの利用規約を必ず確認</p>
+    </div>
+  </section>
+
+  <!-- Slide 82: 肖像権 -->
+  <section class="slide slide-content">
+
+    <div class="body">
+      <h2>肖像権・パブリシティ権</h2>
+      <p>顔の生成・差し替えにおける留意点 — 日本でも被害は現実に起きている</p>
+      <ul class="list">
+        <li>実在の人物に似た顔が生成されるリスク → <span class="bold">本人の同意なく使用は肖像権侵害</span></li>
+        <li>有名人の顔・声の無断使用 → <span class="bold">パブリシティ権の侵害</span></li>
+        <li>AI生成であっても「なりすまし」は詐欺罪に該当する可能性</li>
+      </ul>
+      <div class="card" style="margin-top:1rem; background: rgba(192,57,43,0.05);">
+        <h3 style="color:#c0392b;">日本の実例 — ディープフェイク投資詐欺</h3>
+        <p>前澤友作氏・堀江貴文氏のAI加工映像で「本人が推奨する投資」と偽装。<br>被害額は<span class="bold">数億円規模</span>。警察庁が公式に注意喚起。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 83: 利用規約 -->
+  <section class="slide slide-content">
+
+    <div class="body">
+      <h2>利用規約</h2>
+      <p>各ツールの利用規約で確認すべきポイント</p>
+      <ul class="list">
+        <li><span class="bold">商用利用の可否</span>: 無料プランでは商用利用不可のツールもある</li>
+        <li><span class="bold">生成物の権利帰属</span>: ユーザーに帰属 or ツール側に帰属</li>
+        <li><span class="bold">禁止事項</span>: ディープフェイク・誤情報・ポルノ等の禁止</li>
+        <li><span class="bold">データの取り扱い</span>: アップロード素材の学習利用の有無</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Slide 84: ツール別比較テーブル -->
+  <section class="slide slide-content">
+
+    <div class="body">
+      <h2>ツール別 — 利用規約比較</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>ツール</th>
+            <th>商用利用</th>
+            <th>権利帰属</th>
+            <th>素材の学習利用</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Kling</td>
+            <td>有料プランで可</td>
+            <td>ユーザー</td>
+            <td>要確認</td>
+          </tr>
+          <tr>
+            <td>Runway</td>
+            <td>有料プランで可</td>
+            <td>ユーザー</td>
+            <td>オプトアウト可</td>
+          </tr>
+          <tr>
+            <td>Sora</td>
+            <td>有料プランで可</td>
+            <td>ユーザー</td>
+            <td>要確認</td>
+          </tr>
+          <tr>
+            <td>HeyGen</td>
+            <td>有料プランで可</td>
+            <td>ユーザー</td>
+            <td>要確認</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>※ 利用規約は変更される可能性があります。最新情報は各ツールの公式サイトをご確認ください。</p>
+    </div>
+  </section>
+
+  <!-- Slide 85: 法務面の核心 -->
+  <section class="slide slide-landing">
+    <h2>ツールの利用規約を必ず確認し、<br><span class="accent">権利処理を怠らない</span></h2>
+  </section>
+
+  <!-- Slide 86: 日本の法規制まとめ -->
+  <section class="slide slide-content">
+
+    <div class="body">
+      <h2>日本のAI広告に関する法規制</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>法規制</th>
+            <th>AI広告への影響</th>
+            <th>違反リスク</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="bold">景表法</span></td>
+            <td>AI生成画像で実際より良い効果を演出 → 優良誤認</td>
+            <td>課徴金（実例: 588万円）</td>
+          </tr>
+          <tr>
+            <td><span class="bold">薬機法</span></td>
+            <td>AI生成文が無意識に効能効果を標ぼう</td>
+            <td>刑事罰あり</td>
+          </tr>
+          <tr>
+            <td><span class="bold">ステマ規制</span><br><span class="muted">2023年10月〜</span></td>
+            <td>AI生成のPR投稿も広告表示が必須</td>
+            <td>措置命令</td>
+          </tr>
+          <tr>
+            <td><span class="bold">AI法</span><br><span class="muted">2025年9月施行</span></td>
+            <td>基本法的性質。罰則なし・自主性重視</td>
+            <td>直接罰則なし</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="muted">※ AI生成であることは免責理由にならない。広告主が表示内容の合理的根拠を示す責任を負う</p>
+    </div>
+  </section>
+
+  <!-- Slide 86-2: 広告審査における注意点 -->
+  <section class="slide slide-content">
+
+    <div class="body">
+      <h2>各媒体のAI開示ルール</h2>
+      <p>AI生成コンテンツには「AIである」と示すラベル付与が必須の時代</p>
+      <table>
+        <thead>
+          <tr>
+            <th>媒体</th>
+            <th>AI開示の仕組み</th>
+            <th>違反時</th>
+            <th>厳しさ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Google Ads</td>
+            <td>SynthIDで自動追跡 + 合成メディア開示</td>
+            <td>広告不承認</td>
+            <td>★★★</td>
+          </tr>
+          <tr>
+            <td>Meta</td>
+            <td>C2PA自動で「AI info」表示 + 手動開示</td>
+            <td>不承認・アカウント停止</td>
+            <td>★★★</td>
+          </tr>
+          <tr>
+            <td>TikTok</td>
+            <td>リアルなAI生成は必ず開示。47種のAIを自動検出</td>
+            <td><span class="bold">即時ストライク・削除</span></td>
+            <td>★★★★★</td>
+          </tr>
+          <tr>
+            <td>YouTube</td>
+            <td>Studio設定で「altered content」をオン</td>
+            <td>収益化停止・ストライク</td>
+            <td>★★★★</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="muted">TikTokは2025年下半期だけで51,618本を削除、8,600アカウントを永久停止</p>
+    </div>
+  </section>
+
+  <!-- Slide 86-3: Meta AIラベルの変遷 -->
+  <section class="slide slide-content">
+
+    <div class="body">
+      <h2>Meta — AIラベルの変遷</h2>
+      <p>2023年末から段階的に厳格化。広告運用の"前提条件"に</p>
+      <table>
+        <thead>
+          <tr>
+            <th>時期</th>
+            <th>動き</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="bold">2023年12月</span></td>
+            <td>Meta自社AI画像に「Imagined with AI」ウォーターマーク開始</td>
+          </tr>
+          <tr>
+            <td><span class="bold">2024年2月</span></td>
+            <td>Google・OpenAI・Adobe・Midjourneyなど他社AI画像もラベル対象に</td>
+          </tr>
+          <tr>
+            <td><span class="bold">2024年4〜7月</span></td>
+            <td>「Made with AI」→「AI info」に変更。動画・音声にも拡大</td>
+          </tr>
+          <tr>
+            <td><span class="bold">2025年2月</span></td>
+            <td>広告クリエイティブにAIラベル本格導入。フォトリアルな人物は「Sponsored」横に表示</td>
+          </tr>
+          <tr>
+            <td><span class="bold">2025年11月〜</span></td>
+            <td>自己申告義務の強化。ラベルなし → アルゴリズム上「リスク高め」でリーチ制限の可能性</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="muted">AIの関与度で対応が変わる: 背景補正程度 → ラベル出ないことも / 架空の人物生成 → しっかりラベル表示</p>
+    </div>
+  </section>
+
+  <!-- Slide 86-4: 日本の炎上・処分事例 -->
+  <section class="slide slide-content">
+
+    <div class="body">
+      <h2>日本で実際に起きた事例</h2>
+      <ul class="list">
+        <li><span class="bold">前澤友作・堀江貴文 — ディープフェイク投資詐欺</span><br>AI加工映像で投資詐欺広告を横行。被害額<span class="accent bold">数億円規模</span>。警察庁が注意喚起</li>
+        <li><span class="bold">スギ薬局 — AI生成疑惑のキャンペーンイラスト</span><br>XキャンペーンのイラストがAI生成と指摘。開示なしで「クリエイター軽視」と炎上</li>
+        <li><span class="bold">赤いきつね — 動画広告のAI生成疑惑</span><br>東洋水産の動画広告にAI生成疑惑。「コストカット」として批判拡大</li>
+        <li><span class="bold">消費者庁 — 化粧品アフィリエイト広告に課徴金</span><br>2025年12月、AI生成含むアフィリエイト広告に<span class="accent bold">課徴金588万円</span>の支払い命令</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Slide 86-5: 海外の事例 -->
+  <section class="slide slide-content">
+
+    <div class="body">
+      <h2>海外で実際に起きた事例</h2>
+      <ul class="list">
+        <li><span class="bold">Coca-Cola</span> — AI生成クリスマスCMが「魂がない」と2年連続で炎上</li>
+        <li><span class="bold">McDonald's</span> — 全編AI生成CM、手足が不自然に変形し公開3日で取り下げ</li>
+        <li><span class="bold">Taylor Swift</span> — ディープフェイクで偽プレゼント広告、個人情報窃取被害</li>
+        <li><span class="bold">TikTok大量削除</span> — 2025年下半期に51,618本削除（前年比340%増）、8,600アカウント永久停止</li>
+        <li><span class="bold">FTC摘発</span> — AIの能力を誇張した「AI washing」で<span class="accent bold">約25億円</span>の和解金</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Slide 87: 品質管理チェックリスト -->
+  <section class="slide slide-content">
+
+    <div class="body">
+      <h2>公開前チェックリスト</h2>
+      <div class="cols-2">
+        <div>
+          <h3 style="margin-bottom:.5rem;">映像品質</h3>
+          <ul class="list">
+            <li>指の本数・顔の歪み等のアーティファクトがないか</li>
+            <li>テキスト・ロゴが正しく生成されているか</li>
+            <li>無料プランの透かしが残っていないか</li>
+            <li>リップシンクが自然に合っているか</li>
+          </ul>
+        </div>
+        <div style="border-left: var(--border); padding-left: var(--sp-lg);">
+          <h3 style="margin-bottom:.5rem;">法令・権利</h3>
+          <ul class="list">
+            <li>各媒体のAI開示ラベルを付与しているか</li>
+            <li>実在の人物・ブランドに酷似していないか</li>
+            <li><span class="bold">景表法</span>: 誇大表現・根拠のない効果訴求がないか</li>
+            <li><span class="bold">薬機法</span>: 医薬品的な効能効果を標ぼうしていないか</li>
+            <li><span class="bold">ステマ規制</span>: PR・広告であることが明確に表示されているか</li>
+            <li>ツールの商用利用ライセンスを確認したか</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 88: OK vs NG -->
+  <section class="slide slide-content">
+
+    <div class="body">
+      <h2>広告表現 — OK例 vs NG例</h2>
+      <div class="cols-2">
+        <div>
+          <h3 class="accent" style="margin-bottom:.75rem;">OK例</h3>
+          <ul class="list">
+            <li>各媒体のルールに従いAI開示ラベルを付与</li>
+            <li>イメージ画像として明示</li>
+            <li>実際の効果に基づくビフォーアフター</li>
+            <li>商用利用可能なプランで生成</li>
+          </ul>
+        </div>
+        <div style="border-left: var(--border); padding-left: var(--sp-lg);">
+          <h3 style="margin-bottom:.75rem; color: #c0392b;">NG例</h3>
+          <ul class="list">
+            <li>AI生成を隠して実写と偽る → TikTokは即削除</li>
+            <li>著名人のディープフェイク広告 → 詐欺罪リスク</li>
+            <li>AI生成ビフォーアフターの誇張 → <span class="bold">景表法違反（課徴金）</span></li>
+            <li>「シワが消える」等の効能訴求 → <span class="bold">薬機法違反（刑事罰）</span></li>
+            <li>PR表記なしのAI生成投稿 → <span class="bold">ステマ規制違反</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 89: 運用フロー -->
+  <section class="slide slide-content">
+
+    <div class="body">
+      <h2>広告クリエイティブ運用フロー</h2>
+      <div class="flow">
+        <div class="flow-step">
+          <h3>生成</h3>
+          <p>AI でクリエイティブ<br>を生成</p>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <h3>チェック</h3>
+          <p>品質管理<br>チェックリスト</p>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <h3>修正</h3>
+          <p>問題点を<br>修正・再生成</p>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <h3>承認</h3>
+          <p>社内承認<br>フローを通す</p>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <h3>公開</h3>
+          <p>広告として<br>配信開始</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 90: まとめ3カード -->
+  <section class="slide slide-content">
+
+    <div class="body">
+      <h2>実務注意点 まとめ</h2>
+      <div class="cols-3">
+        <div class="card">
+          <span class="tag">法令</span>
+          <h3>日本の法令を守る</h3>
+          <p>景表法・薬機法・<br>ステマ規制を意識。<br>著作権・肖像権の確認。<br>AI生成でも広告主が責任を負う。</p>
+        </div>
+        <div class="card">
+          <span class="tag">開示</span>
+          <h3>AIラベルを付ける</h3>
+          <p>各媒体のAI開示ルールを遵守。<br>特にTikTokは即時ストライク。<br>「隠す」より「堂々と付ける」が有利。</p>
+        </div>
+        <div class="card">
+          <span class="tag">品質</span>
+          <h3>品質を担保</h3>
+          <p>アーティファクトチェック。<br>公開前チェックリストの運用。<br>不自然な表現・誇大表現の排除。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 91: セクション5の締め -->
+  <section class="slide slide-landing">
+    <h2>実務で使う上での<br>観点やチェックポイントを押さえて、<br><span class="accent">安全に活用する</span></h2>
+  </section>
+
+  <!-- ============================================================
+       クロージング（Slides 92-98）
+       ============================================================ -->
+
+  <!-- Slide 92: 課題マップ再掲 -->
+  <section class="slide slide-content">
+
+    <div class="body">
+      <h2>御社の課題への対応マップ（振り返り）</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>御社の課題</th>
+            <th>対応セクション</th>
+            <th>状態</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>素材不足の解消（AIで別人化）</td>
+            <td>Part 1 — フェイススワップ</td>
+            <td class="accent bold">✓</td>
+          </tr>
+          <tr>
+            <td>ビフォーアフター画像の生成</td>
+            <td>Part 2 — 画像生成→動画生成</td>
+            <td class="accent bold">✓</td>
+          </tr>
+          <tr>
+            <td>リレイアウト（1080→1920）</td>
+            <td>Part 1 — AIリレイアウト</td>
+            <td class="accent bold">✓</td>
+          </tr>
+          <tr>
+            <td>構成・スクリプト作成の効率化</td>
+            <td>Part 3 — プロンプトエンジニアリング</td>
+            <td class="accent bold">✓</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Slide 93: キーポイントまとめ -->
+  <section class="slide slide-content">
+
+    <div class="body">
+      <h2>キーポイントまとめ</h2>
+      <ul class="list">
+        <li><span class="accent bold">Part 1</span> &nbsp;7つの主要機能で、動画生成AIの「できること」を把握</li>
+        <li><span class="accent bold">Part 2</span> &nbsp;段階的に生成することで、クオリティとコントロールを両立</li>
+        <li><span class="accent bold">Part 3</span> &nbsp;LLMで構成・ナレーション・トンマナまで一気通貫</li>
+        <li><span class="accent bold">Part 4</span> &nbsp;Remotion × Claude Code で編集の自動化が可能に</li>
+        <li><span class="accent bold">Part 5</span> &nbsp;法務・広告審査の観点を押さえて安全に活用</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Slide 95: Next Steps -->
+  <section class="slide slide-content">
+
+    <div class="body">
+      <h2>Next Steps</h2>
+      <ul class="list">
+        <li><span class="bold">まずは触ってみる</span> — 無料プランがあるツールで Text-to-Video を試す</li>
+        <li><span class="bold">段階的生成を実践</span> — 画像生成→Image-to-Video の2ステップで1本作る</li>
+        <li><span class="bold">プロンプトを活用</span> — 今日のテンプレートで構成案を1本作ってみる</li>
+        <li><span class="bold">チェックリストを運用</span> — 品質管理チェックリストをチーム内で共有</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Slide 96: 質疑応答 -->
+  <section class="slide slide-content">
+
+    <div class="body" style="display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center;">
+      <h2>質疑応答</h2>
+      <p>ご質問・ご不明点がございましたら<br>お気軽にどうぞ</p>
+      <p class="muted" style="margin-top: var(--sp-md);">16:20 〜 16:30（10分）</p>
+    </div>
+  </section>
+
+  <!-- エンディング -->
+  <section class="slide slide-end">
+
+    <div class="mark"></div>
+    <h2>ありがとうございました</h2>
+    <p class="muted">山崎真由子</p>
+  </section>
+
+</div><!-- /.deck -->
+
+<!-- ── ナビUI ── -->
+<div class="slide-ui">
+  <div class="slide-counter">01 / 98</div>
+  <div class="slide-nav">
+    <button id="btn-prev">← Prev</button>
+    <button id="btn-next">Next →</button>
+    <button id="btn-pdf" title="PDF書き出し">PDF</button>
+    <button id="btn-fs" title="フルスクリーン (F)">⛶</button>
+  </div>
+</div>
+
+<script src="engine/slide.js"></script>
+<script>
+  // 各スライドにページ番号を自動設定
+  document.querySelectorAll('.slide').forEach((slide, i) => {
+    slide.setAttribute('data-page', i + 1);
+  });
+</script>
+</body>
+</html>
