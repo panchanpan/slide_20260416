@@ -340,6 +340,11 @@ body { font-family: var(--font-sans); }
   margin-top: .55em;
 }
 
+/* 箇条書き（小）16px */
+.list-sm li {
+  font-size: 16px;
+}
+
 /* ── カード ── */
 .card {
   background: var(--color-card-bg);
